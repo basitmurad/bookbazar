@@ -7,6 +7,7 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
+
   List<String> images = [
     'images/frame1.png',
     'images/frame2.png',
@@ -26,9 +27,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
 
   int currentIndex = 0;
+  bool showButton = false; // Initially hide the button
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    showButton= images.length==2;
+  }
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false, // Set this to false to remove the back arrow
@@ -39,74 +50,43 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         }, child: Text('Skip'))],
         // title: Text('Onboarding Screen'),
       ),
-      body: Center(
-        child: PageView.builder(itemCount: images.length,
-          itemBuilder:  (context,index)
-          {
-            return buildPageItem(index);
-          }
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              height: 500,
+              color: Colors.white60,
+              child: PageView.builder(itemCount: images.length,
+                itemBuilder:  (context,index)
+                {
+                  return buildPageItem(index);
+                }
 
-          ,
-          onPageChanged: (int index){
-          if(index==2)
-            {
-              Navigator.push(context, MaterialPageRoute(builder: (context) =>LoginScreen()));
-            }
+                ,
+                onPageChanged: (int index){
+                // if(index==2)
+                //   {
+                //     Navigator.push(context, MaterialPageRoute(builder: (context) =>LoginScreen()));
+                //   }
 
 
-          },
-          // children: [
-          //   Center(
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Image(
-          //           image: AssetImage('assets/${images[0]}'),
-          //           width: 180,
-          //           height: 180,
-          //         ),
-          //         Padding(
-          //           padding: const EdgeInsets.all(8.0),
-          //           child: Text(
-          //             texts[0],
-          //             style:
-          //                 TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          //           ),
-          //         ),
-          //         Padding(
-          //           padding: const EdgeInsets.all(8.0),
-          //           child: Text(
-          //             text2[0],
-          //             style: TextStyle(fontSize: 14),
-          //           ),
-          //         ),
-          //         Padding(
-          //           padding: const EdgeInsets.all(16.0),
-          //           child: Container(
-          //             width: 150,
-          //             height: 40,
-          //             child: ElevatedButton(
-          //               onPressed: () {},
-          //               child: Text('Next'),
-          //             ),
-          //           ),
-          //         )
-          //       ],
-          //     ),
-          //
-          //     // PageView.builder(
-          //     //   itemCount: images.length,
-          //     //   onPageChanged: (index) {
-          //     //     setState(() {
-          //     //       currentIndex = index;
-          //     //     });
-          //     //   },
-          //     //   itemBuilder: (BuildContext context, int index) {
-          //     //     return buildPageItem(index);
-          //     //   },
-          //     // ),
-          //   )
-          // ],
+                },
+              ),
+            ),
+
+
+        Container(
+          margin: EdgeInsets.all(18.0),
+          child: SizedBox(
+            width: screenWidth*0.7,
+              child: ElevatedButton(onPressed: (){
+
+
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>LoginScreen()));
+
+              }, child: Text('Get Started'))),
+        )
+          ],
         ),
       ),
     );

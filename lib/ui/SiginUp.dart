@@ -1,27 +1,38 @@
-import 'package:bookbazar/ui/SiginUp.dart';
 import 'package:bookbazar/ui/dashboardScreen.dart';
+import 'package:bookbazar/ui/login.dart';
+import 'package:bookbazar/ui/otpScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUp extends StatefulWidget {
+
+
+  final GlobalKey<_SignUp> signUpKey;
+
+  SignUp({Key? key, required this.signUpKey}) : super(key: key);
+
+
   @override
-
-    State<StatefulWidget> createState() => _LoginScreen();
-
+  State<StatefulWidget> createState() => _SignUp();
 }
 
-class _LoginScreen extends State<LoginScreen> {
-  void initState()
-  {
+class _SignUp extends State<SignUp> {
+  var textEmail = TextEditingController();
+  var textPassword = TextEditingController();
+  var textName = TextEditingController();
+
+  @override
+  void initState() {
     super.initState();
   }
+
   @override
   void dispose() {
-    // TODO: implement dispose
+    textEmail.dispose();
+    textPassword.dispose();
+    textName.dispose();
     super.dispose();
   }
-  var textEmail= TextEditingController();
-  var textPassword= TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +51,7 @@ class _LoginScreen extends State<LoginScreen> {
             children: [
               Container(
                 margin:
-                    EdgeInsets.only(top: 18, left: 20, right: 20, bottom: 20),
+                EdgeInsets.only(top: 18, left: 20, right: 20, bottom: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,8 +69,31 @@ class _LoginScreen extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Sign in to your account',
+                        'Create account and choose favorite menu',
                         style: TextStyle(color: Colors.grey, fontSize: 19),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Text('Name'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: textName,
+                        decoration: InputDecoration(
+                            hintText: 'Enter name',
+                            filled: true,
+                            fillColor: Color(0xC2F1F0F0),
+                            border: OutlineInputBorder(),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.5),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.5),
+                              borderSide: BorderSide(color: Colors.red),
+                            )),
                       ),
                     ),
                     Padding(
@@ -69,9 +103,8 @@ class _LoginScreen extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
-                        controller:  textEmail,
+                        controller: textEmail,
                         decoration: InputDecoration(
-
                             hintText: 'Enter email',
                             filled: true,
                             fillColor: Color(0xC2F1F0F0),
@@ -86,18 +119,14 @@ class _LoginScreen extends State<LoginScreen> {
                             )),
                       ),
                     ),
-                    Container(
-                      height: 10,
-                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 4.0),
                       child: Text('Password'),
-                    ), // Changed from 'Email' to 'Password'
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
                         controller: textPassword,
-                        obscureText: true,
                         decoration: InputDecoration(
                             hintText: 'Enter password',
                             filled: true,
@@ -113,12 +142,11 @@ class _LoginScreen extends State<LoginScreen> {
                             )),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Forgot Password?  ',
-                        style: TextStyle(color: Colors.blue),
-                      ),
+                    Container(
+                      height: 3,
+                    ),
+                    Container(
+                      height: 3,
                     ),
                     Center(
                       child: Padding(
@@ -130,22 +158,29 @@ class _LoginScreen extends State<LoginScreen> {
                               top: 30, left: 20, bottom: 20, right: 20),
                           child: ElevatedButton(
                             onPressed: () {
-                              print('Click');
+                              String name = textName.text.toString();
+                              String email = textEmail.text.toString();
+                              String password = textPassword.text.toString();
 
+                              print(
+                                  'Name: $name, Password: $password, Email: $email');
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DashboardScreen()));
-                              setState(() {
-
-                              });
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => OtpScreen(
+                                    name: name,
+                                    password: password,
+                                    email: email,
+                                  ),
+                                ),
+                              );
                             },
                             style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.deepPurple)),
+                                MaterialStateProperty.all<Color>(
+                                    Colors.deepPurple)),
                             child: Text(
-                              'Login',
+                              'Sign Up',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
@@ -154,14 +189,13 @@ class _LoginScreen extends State<LoginScreen> {
                         ),
                       ),
                     ),
-
                     Container(
                       alignment: Alignment.center,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'new User',
+                            'Have an account?',
                             style: TextStyle(fontSize: 18),
                           ),
                           TextButton(
@@ -169,104 +203,35 @@ class _LoginScreen extends State<LoginScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SignUp(signUpKey: GlobalKey())));
+                                        builder: (context) => LoginScreen()));
 
-                                print('');
+                                print('Login Screen');
                               },
-                              child: Text('Sign Up'))
+                              child: Text('Sign In'))
                         ],
                       ),
                     ),
-
                     Container(
                       alignment: Alignment.center,
                       child: Center(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 2.0,
-                                width: 100,
-                                color: Colors.grey,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'By clicking Register,\n you agree to our ',
+                              textAlign: TextAlign.center,
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Terms and Data Policy.',
+                                style: TextStyle(
+                                    color: Colors.deepPurple,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  child: Text(
-                                    'Or with',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                height: 2.0,
-                                width: 100,
-                                color: Colors.grey,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    Container(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 1, right: 1),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            print('Google');
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'assets/images/google.png',
-                                // Replace with your asset path
-                                width: 24.0, // Adjust the width as needed
-                                height: 24.0, // Adjust the height as needed
-                              ),
-                              SizedBox(width: 16.0),
-                              // Adjust the spacing between icon and text
-                              Text('Sign in with Google'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 1, right: 1),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            print('Google');
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                'assets/images/ios.png',
-                                // Replace with your asset path
-                                width: 24.0, // Adjust the width as needed
-                                height: 24.0,
-                                // Adjust the height as needed
-                              ),
-                              SizedBox(width: 16.0),
-                              // Adjust the spacing between icon and text
-                              Text('Sign in with Google'),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -278,5 +243,11 @@ class _LoginScreen extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  bool isPasswordValid(String password) {
+    // Password regex: At least one uppercase letter, one lowercase letter, and one number, with a minimum length of 8 characters
+    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
+    return regex.hasMatch(password);
   }
 }
