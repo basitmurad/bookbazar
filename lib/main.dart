@@ -1,6 +1,7 @@
 
 
 
+import 'package:bookbazar/ui/aurtherScreen.dart';
 import 'package:bookbazar/ui/dashboardScreen.dart';
 import 'package:bookbazar/ui/login.dart';
 import 'package:bookbazar/ui/otpScreen.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DashboardScreen()
+      home: AurtherScreen()
     );
   }
 
