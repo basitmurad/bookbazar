@@ -8,6 +8,7 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
+
   List<String> images = [
     'images/frame1.png',
     'images/frame2.png',
@@ -47,10 +48,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         actions: [TextButton(onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) =>LoginScreen()));
 
-        }, child: Text('Skip'))],
+        }, child: Text('Skip' ,style: TextStyle(color: Colors.black),))],
         // title: Text('Onboarding Screen'),
       ),
-      body: Container(
+      body:
+      Container(
         child: Column(
           children: [
             Container(
@@ -64,10 +66,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
                 ,
                 onPageChanged: (int index){
-                // if(index==2)
-                //   {
-                //     Navigator.push(context, MaterialPageRoute(builder: (context) =>LoginScreen()));
-                //   }
+                if(index==2)
+                  {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>LoginScreen()));
+                  }
 
 
                 },
@@ -75,17 +77,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
 
 
-        Container(
-          margin: EdgeInsets.all(18.0),
-          child: SizedBox(
-            width: screenWidth*0.7,
-              child: ElevatedButton(onPressed: (){
-
-
-                Navigator.push(context, MaterialPageRoute(builder: (context) =>LoginScreen()));
-
-              }, child: Text('Get Started'))),
-        )
           ],
         ),
       ),

@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: DashboardScreen()
     );
   }
@@ -28,6 +29,8 @@ class SplashScreen extends StatelessWidget
 
   @override
   Widget build(BuildContext context   ) {
+
+    double screenWidth = MediaQuery.of(context).size.width;
 
 
     Future.delayed(Duration(seconds: 2), () {
@@ -42,21 +45,23 @@ class SplashScreen extends StatelessWidget
         body: Center(
           child: Container(
 
-              width: 100,
 
+            width: screenWidth * 0.1,
               child: Row(
 
                   children: [
                     Image.asset('assets/images/logo.png',
-                      width: 40,
-                      height: 40,),
+                      width: 38,
+                      height: 38,),
                     Padding(padding: EdgeInsets.all(4.0)),
-                    Text('Bazar' ,style: TextStyle(color: Colors.white ,fontSize: 18 ,fontWeight: FontWeight.bold),)
+                    Text('Bazar' ,style: TextStyle(color: Colors.black ,fontSize: 20 ,fontWeight: FontWeight.bold),)
                   ]
 
 
 
-              )
+
+              ),
+
           ),
 
 
