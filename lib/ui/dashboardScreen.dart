@@ -298,51 +298,46 @@ class _DashboardScreen extends State<DashboardScreen> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return GestureDetector(
+                              onTap: () {
+
+                                print('index is $index');
 
 
-                            onTap: (){
-
-                              print('Basit murad $index' );
-                            },
-                                child: Card(
-                                  margin: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Container(
-                                          width: 90.0, // Adjust the width as needed
-                                          height: 70.0,
-                                          child:
-                                          Container(
-                                            child: CircleAvatar(
-                                              backgroundImage: AssetImage(myImages[index]),
-                                              backgroundColor: Colors.orange,
-                                            ),
-                                          )
-
-
+                              },
+                              child: Card(
+                                margin: EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                        width: 90.0,
+                                        // Adjust the width as needed
+                                        height: 70.0,
+                                        child: Container(
+                                          child: CircleAvatar(
+                                            backgroundImage:
+                                                AssetImage(myImages[index]),
+                                            backgroundColor: Colors.orange,
+                                          ),
+                                        )),
+                                    Text(
+                                      names[index],
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      Text(
-                                        names[index],
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    ),
+                                    Text(
+                                      '\$${prices[index]}',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.green,
                                       ),
-                                      Text(
-                                        '\$${prices[index]}',
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          color: Colors.green,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-
-
-                                )
-
+                                    ),
+                                  ],
+                                ),
+                              ),
                             );
                           },
                         ),
